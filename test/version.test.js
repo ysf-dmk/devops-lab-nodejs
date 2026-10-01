@@ -2,6 +2,7 @@
  * Integration test for GET /version.
  * Focus: HTTP behavior & payload shape.
  */
+import fs from 'node:fs'
 import request from 'supertest'
 import app from '../src/app.js'
 import { describe, it, expect } from 'vitest'
@@ -17,5 +18,13 @@ describe('GET /version', () => {
   it('responds with JSON content-type', async () => {
     const res = await request(app).get('/version')
     expect(res.headers['content-type']).toMatch(/application\/json/)
+  })
+
+  it('returns exactly the version declared in package.json', async () => {
+    const pkg = JSON.parse(
+      fs.readFileSync(new URL('../package.json', import.meta.url), 'utf-8')
+    )
+    const res = await request(app).get('/version')
+    expect(res.body).toEqual({ version: pkg.version })
   })
 })
