@@ -16,8 +16,11 @@ describe('getPackageInfo', () => {
 describe('getRuntimeInfo', () => {
   it('returns node and uptime', () => {
     const runtime = getRuntimeInfo()
+
     expect(typeof runtime.node).toBe('string')
     expect(typeof runtime.uptime).toBe('number')
+    expect(runtime.node).toBe(process.version)
+    expect(runtime.uptime).toBeGreaterThanOrEqual(0)
   })
 
   it('calls process.uptime()', () => {
