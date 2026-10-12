@@ -8,7 +8,16 @@ import { getPackageInfo, getRuntimeInfo } from '../../utils/appInfo.js'
 const router = Router()
 
 router.get('/info', (_req, res) => {
-  const info = { ...getPackageInfo(), ...getRuntimeInfo() }
+  const packageInfo = getPackageInfo()
+  const runtimeInfo = getRuntimeInfo()
+
+  const info = {
+    name: packageInfo.name,
+    version: packageInfo.version,
+    node: runtimeInfo.node,
+    uptime: runtimeInfo.uptime
+  }
+
   res.status(200).json(info)
 })
 
