@@ -9,6 +9,12 @@ describe('formatStatus', () => {
   it('throws on negative', () => {
     expect(() => formatStatus(-1)).toThrow('invalid uptime')
   })
+  it('throws on non-numeric input', () => {
+    expect(() => formatStatus('abc')).toThrow('uptime must be a number')
+  })
+  it('throws on NaN', () => {
+    expect(() => formatStatus(NaN)).toThrow('uptime must be a number')
+  })
   it('warming-up under 60s', () => {
     expect(formatStatus(10)).toBe('warming-up')
   })
