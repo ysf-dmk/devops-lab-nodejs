@@ -2,15 +2,15 @@
  * Utility designed to create branch coverage.
  * Maps uptime (seconds) to a label.
  */
-export function formatStatus(uptime) {
+export function formatStatus (uptime) {
   if (uptime < 0) {
-    throw new Error("Uptime cannot be negative");
+    throw new Error('invalid uptime')
   }
   if (uptime < 60) {
-    return "warming-up";
+    return 'warming-up'
   }
   if (uptime < 3600) {
-    return "healthy";
+    return 'healthy'
   }
-  return "steady";
+  return 'steady'
 }
