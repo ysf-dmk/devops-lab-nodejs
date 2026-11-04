@@ -1,0 +1,99 @@
+{
+  "info": {
+    "_postman_id": "eb42bfcd-6e4c-46e2-803b-43ca23c03099",
+    "name": "Healthcare API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59565568"
+  },
+  "item": [
+    {
+      "name": "Get doctors",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {\r",
+              "  pm.response.to.have.status(200)\r",
+              "})\r",
+              "\r",
+              "pm.test('Response is an array', function () {\r",
+              "  pm.expect(pm.response.json()).to.be.an('array')\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/doctors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "doctors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add doctor",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {\r",
+              "  pm.response.to.have.status(201)\r",
+              "})\r",
+              "\r",
+              "pm.test('Doctor was created correctly', function () {\r",
+              "  const doctor = pm.response.json()\r",
+              "\r",
+              "  pm.expect(doctor.id).to.be.a('number')\r",
+              "  pm.expect(doctor.name).to.equal('Dr. Julie')\r",
+              "  pm.expect(doctor.specialty).to.equal('Neurology')\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Dr. Julie\",\r\n  \"specialty\": \"Neurology\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/doctors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "doctors"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
